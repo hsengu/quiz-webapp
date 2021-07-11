@@ -63,6 +63,8 @@
 
 .flex-center .content h2 {
     text-align: center;
+    margin-bottom: 50px;
+    border-bottom: 3px solid red;
 }
 
 .flex-bottom {

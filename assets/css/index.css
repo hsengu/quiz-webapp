@@ -1,7 +1,12 @@
-.flex-center .content ol {
+.flex-center .content ul {
     align-items: center;
     width: fit-content;
     list-style: none;
+    margin-left: 25%;
+}
+
+.flex-center .content ul li {
+    margin: 10px;
 }
 
 .flex-center .content h4 {
