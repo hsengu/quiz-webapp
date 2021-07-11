@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.flex-header {
+    padding: 20px 30px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.3));
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+}
+
+.flex-header div {
+    text-align: center;
+    margin: auto 0px;
+    min-width: 200px;
+}
+
+.flex-header div h1 {
+    font-size: 43px;
+}
+
+.flex-header div a {
+    text-decoration: none;
+    color: darkslategrey;
+}
+
+.flex-header div a h3 {
+    font-weight: normal;
+}
+
+.flex-header div a:hover h3 {
+    font-weight: bold;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100vh;
+    min-height: fit-content;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.flex-top {
+    align-self: flex-start;
+}
+
+.flex-center {
+    width: 80%;
+}
+
+.flex-center .content h2 {
+    text-align: center;
+}
+
+.flex-bottom {
+    align-self: flex-end;
+}
+
+.flex-footer {
+    text-align: center;
+    padding: 20px 30px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.3));
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

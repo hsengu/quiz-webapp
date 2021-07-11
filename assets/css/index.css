@@ -1,0 +1,15 @@
+.flex-center .content ol {
+    align-items: center;
+    width: fit-content;
+    list-style: none;
+}
+
+.button {
+    background-color: green;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.button:hover {
+    background-color: red;
+}
