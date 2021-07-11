@@ -4,12 +4,22 @@
     list-style: none;
 }
 
-.button {
+.flex-center .content h4 {
+    text-align: center;
+}
+
+#start-button {
+    text-align: center;
+    width: max-content;
+    margin: 0 auto;
+}
+
+#start-button, .button {
     background-color: green;
     border-radius: 20px;
     padding: 10px;
 }
 
-.button:hover {
+#start-button:hover, .button:hover {
     background-color: red;
 }
