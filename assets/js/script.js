@@ -1,6 +1,13 @@
 var startBtn = document.getElementById("start-button");
 var mainContent = document.querySelector(".content");
 var countdown = document.getElementById("time-left");
+var timeInterval = null;
+var scores = (10);
+var score = 0;
+var quizIndex = 0;
+var quiz = new Array(10);
+var timePerQuestion = 10;
+var timeLeft = timePerQuestion * quiz.length;
 var questionPool = [
         {
         "question": "Question 1",
@@ -10,7 +17,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 2",
@@ -20,7 +28,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 3",
@@ -30,7 +39,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 4",
@@ -40,7 +50,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 5",
@@ -50,7 +61,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 6",
@@ -60,7 +72,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 7",
@@ -70,7 +83,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 8",
@@ -80,7 +94,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 9",
@@ -90,7 +105,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 10",
@@ -100,7 +116,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 11",
@@ -110,7 +127,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 12",
@@ -120,7 +138,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 13",
@@ -130,7 +149,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 14",
@@ -140,7 +160,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 15",
@@ -150,7 +171,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 16",
@@ -160,7 +182,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 17",
@@ -170,7 +193,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 18",
@@ -180,7 +204,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 19",
@@ -190,7 +215,8 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     },
     {
         "question": "Question 20",
@@ -200,12 +226,10 @@ var questionPool = [
             "c",
             "d"
         ],
-        "answer": 2
+        "answer": 2,
+        "added": false
     }
 ];
-
-var quizIndex = 0;
-var quiz = new Array(10);
 
 startBtn.addEventListener("click", function() {
     mainContent.innerHTML = '';
@@ -215,16 +239,27 @@ startBtn.addEventListener("click", function() {
 });
 
 function generateQuiz() {
-    /*fetch("quiz.json").then(result => {
+    /*fetch("../assets/json/quiz.json").then(result => {
         console.log(result);
     });*/
     for(var i = 0; i < quiz.length; i++) {
-        quiz[i] = questionPool[Math.floor(Math.random() * questionPool.length)];
+        var questionIndex = Math.floor(Math.random() * questionPool.length);
+        
+        if(questionPool[questionIndex].added === false) {
+            quiz[i] = questionPool[questionIndex];
+            questionPool[questionIndex].added = !questionPool[questionIndex].added;
+        } else {
+            i--;
+            continue;
+        }
+
         for(var j = 0; j < quiz[i].choices.length; j++) {
             var tempIndex = Math.floor(Math.random() * quiz[i].choices.length);
             var temp = quiz[i].choices[tempIndex];
+        
             quiz[i].choices[tempIndex] = quiz[i].choices[j];
             quiz[i].choices[j] = temp;
+        
             if(tempIndex === quiz[i].answer) {
                 quiz[i].answer = j;
             } else if(j === quiz[i].answer) {
@@ -241,7 +276,7 @@ function outputQuiz() {
         var ulEl = document.createElement("ul");
         
         h2El.id = "question";
-        h2El.textContent = quiz[quizIndex].question;
+        h2El.textContent = "Question #" + (quizIndex + 1) + " : " + quiz[quizIndex].question;
         
         ulEl.className = "answers";
         for(var i = 0; i < 4; i++) {
@@ -267,28 +302,87 @@ function outputQuiz() {
         
         mainContent.appendChild(h2El);
         mainContent.appendChild(ulEl);
-        setTimer();
-        quizHandler();
+        
+        if(!timeInterval)
+            setTimer();
+        
+        var ansBtn = document.querySelector(".answers");
+        ansBtn.addEventListener("click", quizHandler);
     }
 }
 
 function setTimer() {
-    var timeLeft = 10 * quiz.length;
-    var timeInterval = setInterval(function() {
+    timeInterval = setInterval(function() {
         if(timeLeft > 0)
             countdown.textContent = "Time Remaining: " + timeLeft--;
         else {
-            clearInterval(timeInterval);
-
+            endQuiz();
         }
     }, 1000);
 }
 
-function quizHandler() {
-    var ansBtn = document.querySelector(".answers");
-    ansBtn.addEventListener("click", function(event) {
-        console.log(event.target.id);
-    });
+function quizHandler(event) {
+    var guess;
+
+    if(!event.target.id)
+        return;
+    if(timeLeft <= 0) {
+        endQuiz();
+    }
+    else {
+        switch(event.target.id) {
+            case "ansA": guess = 0;
+                        break;
+            case "ansB": guess = 1;
+                        break;
+            case "ansC": guess = 2;
+                        break;
+            case "ansD": guess = 3;
+                        break;
+            default: break;
+        }
+
+        var contentEl = document.querySelector(".content");
+        var h3El = document.createElement("h3");
+        contentEl.removeChild(document.querySelector(".answers"));
+
+        if(guess === quiz[quizIndex].answer) {
+            h3El.textContent = "😀 Correct !!! 😀";
+            h3El.style = "color: green; font-size: 30px; text-align: center;";
+            score += 10;
+        } else {
+            h3El.textContent = "😣 Wrong !!! 😣";
+            h3El.style = "color: red; font-size: 30px; text-align: center;";
+            timeLeft -= 10;
+        }
+
+        console.log(quizIndex + " Guess: " + guess + " Actual Answer: " + quiz[quizIndex].answer);
+        contentEl.appendChild(h3El);
+        var tempTimer = setTimeout(function() {
+            quizIndex++;
+            if(quizIndex >= quiz.length)
+                endQuiz();
+            else
+                outputQuiz();
+        }, 1000);
+    }
+}
+
+function endQuiz() {
+    clearInterval(timeInterval);
+    quizIndex = 0;
+
+    if(timeLeft <= 0) {
+        countdown.textContent = "Time's Up!!!"
+        countdown.style = "color: red;"
+    } else {
+        countdown.textContent = "Completed Quiz!!!";
+        countdown.style = "color: green";    
+    }
+
+    timeInterval = setTimeout(function () {
+        window.location.href = "./highscores.html";
+    }, 2000);
 }
 
 function saveScore() {
