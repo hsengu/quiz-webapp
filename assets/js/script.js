@@ -296,22 +296,23 @@ function outputQuiz() {
         mainContent.appendChild(h2El);
         mainContent.appendChild(ulEl);
         
-        if(!timeInterval)
-            setTimer();
+        if(!timeInterval) {
+            timer();
+        }
         
         var ansBtn = document.querySelector(".answers");
         ansBtn.addEventListener("click", quizHandler);
     }
 }
 
-function setTimer() {
-    timeInterval = setInterval(function() {
-        if(timeLeft > 0)
-            countdown.textContent = "Time Remaining: " + timeLeft--;
-        else {
-            endQuiz();
-        }
-    }, 1000);
+function timer() {
+    if(timeLeft > 0) {
+        countdown.textContent = "Time Remaining: " + timeLeft--;
+    } else {
+        endQuiz();
+    }
+    if(!timeInterval)
+        timeInterval = setInterval(timer, 1000);
 }
 
 function quizHandler(event) {
@@ -346,7 +347,6 @@ function quizHandler(event) {
             h3El.textContent = "😣 Wrong !!! 😣";
             h3El.style = "color: red;";
             timeLeft -= 10;
-            countdown.textContent = "Time Remaining: " + timeLeft;
         }
 
         mainContent.appendChild(h3El);
@@ -361,7 +361,7 @@ function quizHandler(event) {
 }
 
 function endQuiz() {
-    clearInterval(timeInterval);
+    timeInterval = clearInterval(timeInterval);
     quizIndex = 0;
 
     var h3El = document.createElement("h3");
@@ -386,6 +386,7 @@ function endQuiz() {
 
 function checkScore() {
     var h3El = document.createElement("h3");
+    var pEl = document.createElement("p");
     var rank = -2;
     var newHighScore = {
         "user": "",
@@ -410,8 +411,13 @@ function checkScore() {
     } else {
         mainContent.innerHTML = '';
         h3El.textContent = "Congrats you made it to the top 10 !!!";
+        pEl.textContent = "Your final score is: " + newHighScore.score;
         mainContent.appendChild(h3El);
-        getUserName(rank, newHighScore, saveScore);
+        mainContent.appendChild(pEl);
+        
+        var tempTimer = setTimeout(function() {
+            getUserName(rank, newHighScore, saveScore);
+        }, 3000);
     }
 }
 
@@ -448,7 +454,7 @@ function getUserName(rank, userData, callback) {
     mainContent.appendChild(submitBtnEl);
 
     submitBtnEl.addEventListener("click", function() {
-        userData.name = document.getElementById("name").value;
+        userData.user = document.getElementById("name").value;
         callback(rank, userData);
         window.location.href = "./highscores.html";
     });
@@ -457,7 +463,35 @@ function getUserName(rank, userData, callback) {
 }
 
 function generateScores() {
-    
+    if(scores.length > 0) {
+        mainContent.innerHTML = "<h2 class='top-scores'>Top 10 Scores</h2><br>"
+        var tableEl = document.createElement("table");
+        var rowEl = document.createElement("tr");
+        var thEl = document.createElement("th");
+
+        tableEl.className = "score-table";
+        thEl.textContent = "Name / Initials";
+        rowEl.appendChild(thEl);
+        thEl = document.createElement("th");
+        thEl.textContent = "Score";
+        rowEl.appendChild(thEl);
+        tableEl.appendChild(rowEl);
+
+        for(var i = 0; i < scores.length; i++) {
+            rowEl = document.createElement("tr");
+            var tdEl = document.createElement("td");
+            tdEl.textContent = scores[i].user;
+            rowEl.appendChild(tdEl);
+            tdEl = document.createElement("td");
+            tdEl.textContent = scores[i].score;
+            rowEl.appendChild(tdEl);
+            tableEl.appendChild(rowEl);
+        }
+
+        mainContent.appendChild(tableEl);
+    } else {
+        mainContent.innerHTML = "<h2 class='top-scores'>There are currently no scores on record</h2>"
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {

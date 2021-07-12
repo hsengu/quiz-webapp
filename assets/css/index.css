@@ -8,6 +8,11 @@
     font-size: 30px;
 }
 
+.flex-center .content p {
+    text-align: center;
+    font-size: 18px;
+}
+
 .flex-center .content ul {
     align-items: center;
     width: fit-content;
