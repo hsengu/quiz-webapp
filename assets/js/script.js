@@ -231,12 +231,6 @@ var questionPool = [
     }
 ];
 
-startBtn.addEventListener("click", function() {
-    mainContent.innerHTML = '';
-    generateQuiz();
-    outputQuiz();
-});
-
 function generateQuiz() {
     /*fetch("../assets/json/quiz.json").then(result => {
         console.log(result);
@@ -415,7 +409,7 @@ function checkScore() {
         mainContent.appendChild(h3El);
     } else {
         mainContent.innerHTML = '';
-        h3El.textContent = "Congrats you made the top 10!!!";
+        h3El.textContent = "Congrats you made it to the top 10 !!!";
         mainContent.appendChild(h3El);
         getUserName(rank, newHighScore, saveScore);
     }
@@ -462,6 +456,20 @@ function getUserName(rank, userData, callback) {
     mainContent.appendChild(submitBtnEl);
 }
 
+function generateScores() {
+    
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     scores = getScores();
+    if(document.title === "Coding Quiz Challenge") {
+        startBtn.addEventListener("click", function() {
+            mainContent.innerHTML = '';
+            generateQuiz();
+            outputQuiz();
+        });
+    } else if(document.title === "High Scores") {
+        mainContent.innerHTML = '';
+        generateScores();
+    }
 });
