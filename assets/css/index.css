@@ -1,3 +1,13 @@
+.flex-center .content {
+    min-height: 300px;
+    max-height: fit-content;
+}
+
+.flex-center .content h3 {
+    text-align: center;
+    font-size: 30px;
+}
+
 .flex-center .content ul {
     align-items: center;
     width: fit-content;

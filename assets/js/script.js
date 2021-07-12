@@ -2,7 +2,7 @@ var startBtn = document.getElementById("start-button");
 var mainContent = document.querySelector(".content");
 var countdown = document.getElementById("time-left");
 var timeInterval = null;
-var scores = (10);
+var scores = [];
 var score = 0;
 var quizIndex = 0;
 var quiz = new Array(10);
@@ -235,7 +235,6 @@ startBtn.addEventListener("click", function() {
     mainContent.innerHTML = '';
     generateQuiz();
     outputQuiz();
-    saveScore();
 });
 
 function generateQuiz() {
@@ -342,22 +341,21 @@ function quizHandler(event) {
             default: break;
         }
 
-        var contentEl = document.querySelector(".content");
         var h3El = document.createElement("h3");
-        contentEl.removeChild(document.querySelector(".answers"));
+        mainContent.removeChild(document.querySelector(".answers"));
 
         if(guess === quiz[quizIndex].answer) {
             h3El.textContent = "😀 Correct !!! 😀";
-            h3El.style = "color: green; font-size: 30px; text-align: center;";
+            h3El.style = "color: green;";
             score += 10;
         } else {
             h3El.textContent = "😣 Wrong !!! 😣";
-            h3El.style = "color: red; font-size: 30px; text-align: center;";
+            h3El.style = "color: red;";
             timeLeft -= 10;
+            countdown.textContent = "Time Remaining: " + timeLeft;
         }
 
-        console.log(quizIndex + " Guess: " + guess + " Actual Answer: " + quiz[quizIndex].answer);
-        contentEl.appendChild(h3El);
+        mainContent.appendChild(h3El);
         var tempTimer = setTimeout(function() {
             quizIndex++;
             if(quizIndex >= quiz.length)
@@ -372,19 +370,98 @@ function endQuiz() {
     clearInterval(timeInterval);
     quizIndex = 0;
 
+    var h3El = document.createElement("h3");
+    mainContent.innerHTML = '';
+
     if(timeLeft <= 0) {
         countdown.textContent = "Time's Up!!!"
         countdown.style = "color: red;"
+        h3El.textContent = "Ah! You ran out of time!!!";
     } else {
         countdown.textContent = "Completed Quiz!!!";
-        countdown.style = "color: green";    
+        countdown.style = "color: green"; 
+        h3El.textContent = "You completed the quiz!!!";
     }
 
+    mainContent.appendChild(h3El);
+
     timeInterval = setTimeout(function () {
-        window.location.href = "./highscores.html";
+        checkScore();
     }, 2000);
 }
 
-function saveScore() {
+function checkScore() {
+    var h3El = document.createElement("h3");
+    var rank = -2;
+    var newHighScore = {
+        "user": "",
+        "score": score
+    }
 
+    if(scores.length < 10) {
+        rank = -1;
+    } else {
+        for(var i = 0; i < 10; i++) {
+             if(scores[i].score < newHighScore.score) {
+                rank = i;
+                break;
+            }
+        }
+    }
+    
+    if(rank < -1) {
+        mainContent.innerHTML = '';
+        h3El.textContent = "Sorry you didn't make the top 10...";
+        mainContent.appendChild(h3El);
+    } else {
+        mainContent.innerHTML = '';
+        h3El.textContent = "Congrats you made the top 10!!!";
+        mainContent.appendChild(h3El);
+        getUserName(rank, newHighScore, saveScore);
+    }
 }
+
+function saveScore(rank, userData) {
+    if(rank > -1) {
+        scores.splice(rank, 0, userData);
+        scores.pop();
+    } else {
+        scores.push(userData);
+        scores.sort((a, b) => b.score - a.score);
+    }
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+function getScores() {
+    var s = JSON.parse(localStorage.getItem("scores"));
+
+    return (s ? s : []);
+}
+
+function getUserName(rank, userData, callback) {
+    mainContent.innerHTML = '';
+    var h3El = document.createElement("h3");
+    var textInputEl = document.createElement("input");
+    var submitBtnEl = document.createElement("button");
+    h3El.textContent = "Please enter your name or initials: ";
+    textInputEl.type = "text";
+    textInputEl.id = "name";
+    textInputEl.placeholder = "Your name or initials here."
+    submitBtnEl.textContent = "Submit";
+
+    mainContent.appendChild(h3El);
+    mainContent.appendChild(textInputEl);
+    mainContent.appendChild(submitBtnEl);
+
+    submitBtnEl.addEventListener("click", function() {
+        userData.name = document.getElementById("name").value;
+        callback(rank, userData);
+        window.location.href = "./highscores.html";
+    });
+
+    mainContent.appendChild(submitBtnEl);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    scores = getScores();
+});
