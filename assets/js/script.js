@@ -1,5 +1,6 @@
 var startBtn = document.getElementById("start-button");
 var mainContent = document.querySelector(".content");
+var countdown = document.getElementById("time-left");
 var questionPool = [
         {
         "question": "Question 1",
@@ -242,18 +243,22 @@ function outputQuiz() {
         h2El.id = "question";
         h2El.textContent = quiz[quizIndex].question;
         
-        ulEl.class = "answers";
+        ulEl.className = "answers";
         for(var i = 0; i < 4; i++) {
             var liEl = document.createElement("li");
             liEl.className = "button";
             switch(i) {
-                case 0: liEl.innerHTML = "<p>A. <span id='ansA'>" + quiz[quizIndex].choices[0] + "</span></p>";
+                case 0: liEl.textContent = "A. " + quiz[quizIndex].choices[0];
+                        liEl.id = "ansA";
                         break;
-                case 1: liEl.innerHTML = "<p>B. <span id='ansB'>" + quiz[quizIndex].choices[1] + "</span></p>";
+                case 1: liEl.textContent = "B. " + quiz[quizIndex].choices[1];
+                        liEl.id = "ansB";
                         break;
-                case 2: liEl.innerHTML = "<p>C. <span id='ansC'>" + quiz[quizIndex].choices[2] + "</span></p>";
+                case 2: liEl.textContent = "C. " + quiz[quizIndex].choices[2];
+                        liEl.id = "ansC";
                         break;
-                case 3: liEl.innerHTML = "<p>D. <span id='ansD'>" + quiz[quizIndex].choices[3] + "</span></p>";
+                case 3: liEl.textContent = "D. " + quiz[quizIndex].choices[3];
+                        liEl.id = "ansD";
                         break;
                 default: break;
             }
@@ -262,7 +267,28 @@ function outputQuiz() {
         
         mainContent.appendChild(h2El);
         mainContent.appendChild(ulEl);
+        setTimer();
+        quizHandler();
     }
+}
+
+function setTimer() {
+    var timeLeft = 10 * quiz.length;
+    var timeInterval = setInterval(function() {
+        if(timeLeft > 0)
+            countdown.textContent = "Time Remaining: " + timeLeft--;
+        else {
+            clearInterval(timeInterval);
+
+        }
+    }, 1000);
+}
+
+function quizHandler() {
+    var ansBtn = document.querySelector(".answers");
+    ansBtn.addEventListener("click", function(event) {
+        console.log(event.target.id);
+    });
 }
 
 function saveScore() {
