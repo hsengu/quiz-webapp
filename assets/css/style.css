@@ -5,6 +5,18 @@
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6), 
+        rgba(0, 0, 0, 0.6)),
+        url("../images/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-position: 80%;
+    color: white;
+}
+
 .flex-header {
     padding: 20px 30px;
     background: linear-gradient(
@@ -22,7 +34,7 @@
 .flex-header div {
     text-align: center;
     margin: auto 0px;
-    min-width: 200px;
+    min-width: 300px;
 }
 
 .flex-header div h1 {
@@ -31,15 +43,17 @@
 
 .flex-header div a {
     text-decoration: none;
-    color: darkslategrey;
+    color: lightskyblue;
 }
 
 .flex-header div a h3 {
     font-weight: normal;
 }
 
-.flex-header div a:hover h3 {
-    font-weight: bold;
+.flex-header div a:hover h3 > span {
+    float: right;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }
 
 .flex {
@@ -67,6 +81,19 @@
     border-bottom: 3px solid red;
 }
 
+.button {
+    background-color: darkslateblue;
+    border: 1px solid slateblue;
+    cursor: pointer;
+    color: white;
+    padding: 10px 24px;
+    width: 25%;
+}
+
+.button:hover {
+    background-color: dodgerblue;
+}
+
 .flex-bottom {
     align-self: flex-end;
 }
@@ -83,4 +110,25 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+@media screen and (max-width: 680px) {
+    .flex-header {
+        padding: 20px 30px;
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.3), 
+            rgba(0, 0, 0, 0.3));
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    
 }

@@ -266,35 +266,35 @@ function outputQuiz() {
     if(quizIndex < quiz.length) {
         mainContent.innerHTML = '';
         var h2El = document.createElement("h2");
-        var ulEl = document.createElement("ul");
+        var divEl = document.createElement("div");
         
         h2El.id = "question";
         h2El.textContent = "Question #" + (quizIndex + 1) + " : " + quiz[quizIndex].question;
         
-        ulEl.className = "answers";
+        divEl.className = "answers";
         for(var i = 0; i < 4; i++) {
-            var liEl = document.createElement("li");
-            liEl.className = "button";
+            var btnEl = document.createElement("button");
+            btnEl.className = "button";
             switch(i) {
-                case 0: liEl.textContent = "A. " + quiz[quizIndex].choices[0];
-                        liEl.id = "ansA";
+                case 0: btnEl.textContent = "A. " + quiz[quizIndex].choices[0];
+                        btnEl.id = "ansA";
                         break;
-                case 1: liEl.textContent = "B. " + quiz[quizIndex].choices[1];
-                        liEl.id = "ansB";
+                case 1: btnEl.textContent = "B. " + quiz[quizIndex].choices[1];
+                        btnEl.id = "ansB";
                         break;
-                case 2: liEl.textContent = "C. " + quiz[quizIndex].choices[2];
-                        liEl.id = "ansC";
+                case 2: btnEl.textContent = "C. " + quiz[quizIndex].choices[2];
+                        btnEl.id = "ansC";
                         break;
-                case 3: liEl.textContent = "D. " + quiz[quizIndex].choices[3];
-                        liEl.id = "ansD";
+                case 3: btnEl.textContent = "D. " + quiz[quizIndex].choices[3];
+                        btnEl.id = "ansD";
                         break;
                 default: break;
             }
-            ulEl.appendChild(liEl);
+            divEl.appendChild(btnEl);
         }
         
         mainContent.appendChild(h2El);
-        mainContent.appendChild(ulEl);
+        mainContent.appendChild(divEl);
         
         if(!timeInterval) {
             timer();
@@ -352,9 +352,10 @@ function quizHandler(event) {
         mainContent.appendChild(h3El);
         var tempTimer = setTimeout(function() {
             quizIndex++;
-            if(quizIndex >= quiz.length)
+            if(quizIndex >= quiz.length) {
+                temptimer = clearTimeout(tempTimer);
                 endQuiz();
-            else
+            } else
                 outputQuiz();
         }, 1000);
     }
@@ -362,7 +363,7 @@ function quizHandler(event) {
 
 function endQuiz() {
     timeInterval = clearInterval(timeInterval);
-    quizIndex = 0;
+    quizIndex = Number.MAX_SAFE_INTEGER;
 
     var h3El = document.createElement("h3");
     mainContent.innerHTML = '';
@@ -371,6 +372,7 @@ function endQuiz() {
         countdown.textContent = "Time's Up!!!"
         countdown.style = "color: red;"
         h3El.textContent = "Ah! You ran out of time!!!";
+        timeInterval = clearInterval(timeInterval);
     } else {
         countdown.textContent = "Completed Quiz!!!";
         countdown.style = "color: green"; 
@@ -441,17 +443,22 @@ function getScores() {
 function getUserName(rank, userData, callback) {
     mainContent.innerHTML = '';
     var h3El = document.createElement("h3");
+    var divEl = document.createElement("div");
     var textInputEl = document.createElement("input");
     var submitBtnEl = document.createElement("button");
+    divEl.className = "user-input";
     h3El.textContent = "Please enter your name or initials: ";
     textInputEl.type = "text";
     textInputEl.id = "name";
-    textInputEl.placeholder = "Your name or initials here."
+    textInputEl.maxLength = "4";
+    textInputEl.placeholder = "Enter your initials."
+    submitBtnEl.id = "submit-btn";
+    submitBtnEl.className = "button";
     submitBtnEl.textContent = "Submit";
 
     mainContent.appendChild(h3El);
-    mainContent.appendChild(textInputEl);
-    mainContent.appendChild(submitBtnEl);
+    divEl.appendChild(textInputEl);
+    divEl.appendChild(submitBtnEl);
 
     submitBtnEl.addEventListener("click", function() {
         userData.user = document.getElementById("name").value;
@@ -459,7 +466,7 @@ function getUserName(rank, userData, callback) {
         window.location.href = "./highscores.html";
     });
 
-    mainContent.appendChild(submitBtnEl);
+    mainContent.appendChild(divEl);
 }
 
 function generateScores() {
@@ -468,6 +475,7 @@ function generateScores() {
         var tableEl = document.createElement("table");
         var rowEl = document.createElement("tr");
         var thEl = document.createElement("th");
+        var btnEl = document.createElement("button");
 
         tableEl.className = "score-table";
         thEl.textContent = "Name / Initials";
@@ -489,9 +497,35 @@ function generateScores() {
         }
 
         mainContent.appendChild(tableEl);
+        btnEl.textContent = "Go Back";
+        btnEl.id = "back-btn";
+        btnEl.className = "button";
+        mainContent.appendChild(btnEl);
+        btnEl = document.createElement("button");
+        btnEl.textContent = "Clear High Scores";
+        btnEl.id = "clear-btn";
+        btnEl.className = "button";
+        mainContent.appendChild(btnEl);
+
+        var clearBtn = document.getElementById("clear-btn");
+        clearBtn.addEventListener("click", function() {
+            localStorage.clear();
+            window.location.reload();
+        });
+        
     } else {
         mainContent.innerHTML = "<h2 class='top-scores'>There are currently no scores on record</h2>"
+        var btnEl = document.createElement("button");
+        btnEl.textContent = "Go Back";
+        btnEl.id = "back-btn";
+        btnEl.className = "button";
+        mainContent.appendChild(btnEl);
     }
+    
+    var backBtn = document.getElementById("back-btn");
+    backBtn.addEventListener("click", function() {
+        window.location.href = "./index.html";
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function() {

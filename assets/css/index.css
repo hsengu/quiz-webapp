@@ -13,15 +13,14 @@
     font-size: 18px;
 }
 
-.flex-center .content ul {
-    align-items: center;
-    width: fit-content;
-    list-style: none;
-    margin-left: 25%;
+.flex-center .content button {
+    margin: 0 auto;
+    font-size: 18px;
+    display: block;
 }
 
-.flex-center .content ul li {
-    margin: 10px;
+.flex-center .content .answers {
+    align-items: center;
 }
 
 .flex-center .content h4 {
@@ -34,12 +33,23 @@
     margin: 0 auto;
 }
 
-#start-button, .button {
-    background-color: green;
-    border-radius: 20px;
+.button {
+    display: block;
+}
+
+.user-input {
+    margin: 0 auto;
+    width: fit-content;
     padding: 10px;
 }
 
-#start-button:hover, .button:hover {
-    background-color: red;
+#name {
+    padding: 10px 5px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#submit-btn {
+    margin-top: 5px;
+    width: auto;
 }
