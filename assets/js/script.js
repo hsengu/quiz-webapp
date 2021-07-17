@@ -34,10 +34,10 @@ var questionPool = [
     {
         "question": "You should use ___________ to help debug your JS code.",
         "choices": [
-            "window.confirm();",
-            "console.log();",
-            "window.prompt();",
-            "if();"
+            "window.confirm( );",
+            "console.log( );",
+            "window.prompt( );",
+            "if( );"
         ],
         "answer": 1,
         "added": false
@@ -46,7 +46,7 @@ var questionPool = [
         "question": "What is the proper way to start a for loop?",
         "choices": [
             "for(i--; var i = value; i > 0)",
-            "for(function())",
+            "for(function( ))",
             "for(var i = value; i > 0; i--)",
             "for(return i++)"
         ],
@@ -78,10 +78,10 @@ var questionPool = [
     {
         "question": "How would you display an alert window?",
         "choices": [
-            "window.confirm();",
-            "document.alert();",
-            "window.alert();",
-            "document.prompt();"
+            "window.confirm( );",
+            "document.alert( );",
+            "window.alert( );",
+            "document.prompt( );"
         ],
         "answer": 2,
         "added": false
@@ -131,7 +131,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "In the following code snippet the function inside the first set of () is also know as a ________ function:\n\narray.forEach(function( ) { })",
+        "question": "In the following code snippet the function inside the first set of ( ) is also know as a ________ function:\n\narray.forEach(function( ) { })",
         "choices": [
             "Algorithmic",
             "Iterative",
@@ -153,7 +153,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "The default time values used in the setInterval() and setTimeout() functions are?",
+        "question": "The default time values used in the setInterval( ) and setTimeout( ) functions are?",
         "choices": [
             "Nanoseconds",
             "Picoseconds",
@@ -199,7 +199,7 @@ var questionPool = [
     {
         "question": "What is the quickest way to remove the last element of an array?",
         "choices": [
-            "tempArray.push(  );",
+            "tempArray.push( );",
             "tempArray.remove( );",
             "tempArray.pop( );",
             "tempArray.end( )--;"
@@ -231,10 +231,8 @@ var questionPool = [
     }
 ];
 
+// Function for generating randomized quiz and shuffling answer choices.
 function generateQuiz() {
-    /*fetch("../assets/json/quiz.json").then(result => {
-        console.log(result);
-    });*/
     for(var i = 0; i < quiz.length; i++) {
         var questionIndex = Math.floor(Math.random() * questionPool.length);
         
@@ -262,6 +260,7 @@ function generateQuiz() {
     }
 }
 
+// Function for outputting Quiz to HTML
 function outputQuiz() {
     if(quizIndex < quiz.length) {
         mainContent.innerHTML = '';
@@ -305,16 +304,17 @@ function outputQuiz() {
     }
 }
 
+// Function for handling timer
 function timer() {
     if(timeLeft > 0) {
         countdown.textContent = "Time Remaining: " + timeLeft--;
     } else {
         endQuiz();
-    }
-    if(!timeInterval)
+    } if(!timeInterval)
         timeInterval = setInterval(timer, 1000);
 }
 
+// Function for main quiz events
 function quizHandler(event) {
     var guess;
 
@@ -324,6 +324,7 @@ function quizHandler(event) {
         endQuiz();
     }
     else {
+        timeInterval = clearInterval(timeInterval);
         switch(event.target.id) {
             case "ansA": guess = 0;
                         break;
@@ -355,8 +356,10 @@ function quizHandler(event) {
             if(quizIndex >= quiz.length) {
                 temptimer = clearTimeout(tempTimer);
                 endQuiz();
-            } else
+            } else {
+                timer();
                 outputQuiz();
+            }
         }, 1000);
     }
 }
@@ -510,7 +513,8 @@ function generateScores() {
         var clearBtn = document.getElementById("clear-btn");
         clearBtn.addEventListener("click", function() {
             localStorage.clear();
-            window.location.reload();
+            scores = getScores();
+            generateScores();
         });
         
     } else {
