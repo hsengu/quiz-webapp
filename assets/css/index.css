@@ -14,7 +14,7 @@
 }
 
 .flex-center .content button {
-    margin: 0 auto;
+    margin: 10px auto;
     font-size: 18px;
     display: block;
 }
@@ -52,4 +52,10 @@
 #submit-btn {
     margin-top: 5px;
     width: auto;
+}
+
+@media screen and (max-width: 411px) {
+    .flex-center .content .button {
+        font-size: 14px;
+    }
 }

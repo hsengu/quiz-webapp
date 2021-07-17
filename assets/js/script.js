@@ -10,223 +10,223 @@ var timePerQuestion = 10;
 var timeLeft = timePerQuestion * quiz.length;
 var questionPool = [
         {
-        "question": "Question 1",
+        "question": "Inside which HTML element do we put the JavaScript?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "<scripting>",
+            "<js>",
+            "<script>",
+            "<javascript>"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 2",
+        "question": "How do you select the following HTML element below?\n\n<p id='demo'>This is a demonstration.</p>",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "document.getElementById('demo');",
+            "document.querySelector('demo');",
+            "document.getElementById(<p>);",
+            "document.querySelector(p);"
+        ],
+        "answer": 0,
+        "added": false
+    },
+    {
+        "question": "You should use ___________ to help debug your JS code.",
+        "choices": [
+            "window.confirm();",
+            "console.log();",
+            "window.prompt();",
+            "if();"
+        ],
+        "answer": 1,
+        "added": false
+    },
+    {
+        "question": "What is the proper way to start a for loop?",
+        "choices": [
+            "for(i--; var i = value; i > 0)",
+            "for(function())",
+            "for(var i = value; i > 0; i--)",
+            "for(return i++)"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 3",
+        "question": "What does DOM stand for?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "Detail Oriented Metrics",
+            "Distributed Operating Model",
+            "Delegation Object Manifests",
+            "Document Object Model"
+        ],
+        "answer": 3,
+        "added": false
+    },
+    {
+        "question": "What does HTML stand for?",
+        "choices": [
+            "HyperText Markup Language",
+            "Heuristic Text Marking Logic",
+            "HyperText Makeup Language",
+            "Homogenous Markup Language"
+        ],
+        "answer": 0,
+        "added": false
+    },
+    {
+        "question": "How would you display an alert window?",
+        "choices": [
+            "window.confirm();",
+            "document.alert();",
+            "window.alert();",
+            "document.prompt();"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 4",
+        "question": "To import an external JavaScript file you need to specify a _____ value within the <script> tag.",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "link",
+            "href",
+            "alt",
+            "src"
+        ],
+        "answer": 3,
+        "added": false
+    },
+    {
+        "question": "What are these symbols referred to as: <, <=, >=, >=, ==, ===, !=, ||, &&",
+        "choices": [
+            "Operators",
+            "Functions",
+            "Objects",
+            "Prototypes"
+        ],
+        "answer": 0,
+        "added": false
+    },
+    {
+        "question": "To compare both the data type and the data value you should use the _____ operator.",
+        "choices": [
+            "===",
+            "!=",
+            "==",
+            "&&"
+        ],
+        "answer": 0,
+        "added": false
+    },
+    {
+        "question": ".container, .row, #top, .card, and #section-2 are examples of _________.",
+        "choices": [
+            "Queries",
+            "Syntax",
+            "Prototypes",
+            "Selectors"
+        ],
+        "answer": 3,
+        "added": false
+    },
+    {
+        "question": "In the following code snippet the function inside the first set of () is also know as a ________ function:\n\narray.forEach(function( ) { })",
+        "choices": [
+            "Algorithmic",
+            "Iterative",
+            "Callback",
+            "Recursive"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 5",
+        "question": "To execute some code after some time has elapsed which of the following should we use?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "setInterval( )",
+            "setTimeout( )",
+            "setBreakpoint( )",
+            "setTime( )"
+        ],
+        "answer": 1,
+        "added": false
+    },
+    {
+        "question": "The default time values used in the setInterval() and setTimeout() functions are?",
+        "choices": [
+            "Nanoseconds",
+            "Picoseconds",
+            "Seconds",
+            "Milliseconds"
+        ],
+        "answer": 3,
+        "added": false
+    },
+    {
+        "question": "JavaScript has a built-in ________ number generator that can be used by calling _________.",
+        "choices": [
+            "Random / Math.rand( )",
+            "Radom / Math.floor( )",
+            "Pseudorandom / Math.rand( )",
+            "Pseudorandom / Math.floor( )"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 6",
+        "question": "JavaScript is run where?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "Client-side",
+            "Server-side",
+            "In the cloud",
+            "On the web"
+        ],
+        "answer": 0,
+        "added": false
+    },
+    {
+        "question": "To have persisting data between webpage refreshes it would be beneficial to use _________.",
+        "choices": [
+            "Google Drive",
+            "AWS S3",
+            "LocalStorage",
+            "Global variables"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 7",
+        "question": "What is the quickest way to remove the last element of an array?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "tempArray.push(  );",
+            "tempArray.remove( );",
+            "tempArray.pop( );",
+            "tempArray.end( )--;"
         ],
         "answer": 2,
         "added": false
     },
     {
-        "question": "Question 8",
+        "question": "How would you add a single item to an array?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "tempArray.pop( )",
+            "tempArray.push( )",
+            "tempArray.insert( )",
+            "tempArray.sort( )"
         ],
-        "answer": 2,
+        "answer": 1,
         "added": false
     },
     {
-        "question": "Question 9",
+        "question": "Which of the following code will capture a click event form a button?",
         "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
+            "button.addEventListener(event, function('click') { });",
+            "button.addEventListener(function('click') {});",
+            "button.addEventListener('pressed', function( ) { });",
+            "button.addEventListener('click', function( ) { });"
         ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 10",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 11",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 12",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 13",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 14",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 15",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 16",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 17",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 18",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 19",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
-        "added": false
-    },
-    {
-        "question": "Question 20",
-        "choices": [
-            "a",
-            "b",
-            "c",
-            "d"
-        ],
-        "answer": 2,
+        "answer": 3,
         "added": false
     }
 ];
