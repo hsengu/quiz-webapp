@@ -233,9 +233,11 @@ var questionPool = [
 
 // Function for generating randomized quiz and shuffling answer choices.
 function generateQuiz() {
+    // Pick a random question out of the pool
     for(var i = 0; i < quiz.length; i++) {
         var questionIndex = Math.floor(Math.random() * questionPool.length);
         
+        // Check if question is already added to pool
         if(questionPool[questionIndex].added === false) {
             quiz[i] = questionPool[questionIndex];
             questionPool[questionIndex].added = !questionPool[questionIndex].added;
@@ -244,6 +246,7 @@ function generateQuiz() {
             continue;
         }
 
+        // Shuffle the answers
         for(var j = 0; j < quiz[i].choices.length; j++) {
             var tempIndex = Math.floor(Math.random() * quiz[i].choices.length);
             var temp = quiz[i].choices[tempIndex];
@@ -251,6 +254,7 @@ function generateQuiz() {
             quiz[i].choices[tempIndex] = quiz[i].choices[j];
             quiz[i].choices[j] = temp;
         
+            // Check if answer moved from original index and update if needed
             if(tempIndex === quiz[i].answer) {
                 quiz[i].answer = j;
             } else if(j === quiz[i].answer) {
@@ -295,6 +299,7 @@ function outputQuiz() {
         mainContent.appendChild(h2El);
         mainContent.appendChild(divEl);
         
+        // Start timer if not already started
         if(!timeInterval) {
             timer();
         }
@@ -324,7 +329,7 @@ function quizHandler(event) {
         endQuiz();
     }
     else {
-        timeInterval = clearInterval(timeInterval);
+        timeInterval = clearInterval(timeInterval);     // Clear timeInterval to pause timer while checking answers
         switch(event.target.id) {
             case "ansA": guess = 0;
                         break;
@@ -357,13 +362,14 @@ function quizHandler(event) {
                 temptimer = clearTimeout(tempTimer);
                 endQuiz();
             } else {
-                timer();
+                timer();            // Unpause timer
                 outputQuiz();
             }
         }, 1000);
     }
 }
 
+// Function for ending the quiz
 function endQuiz() {
     timeInterval = clearInterval(timeInterval);
     quizIndex = Number.MAX_SAFE_INTEGER;
@@ -371,6 +377,7 @@ function endQuiz() {
     var h3El = document.createElement("h3");
     mainContent.innerHTML = '';
 
+    // Check quiz end conditions, whether ran out of time or completed quiz.
     if(timeLeft <= 0) {
         countdown.textContent = "Time's Up!!!"
         countdown.style = "color: red;"
@@ -384,11 +391,13 @@ function endQuiz() {
 
     mainContent.appendChild(h3El);
 
+    //Check the score
     timeInterval = setTimeout(function () {
         checkScore();
     }, 2000);
 }
 
+// Function for checking user's score
 function checkScore() {
     var h3El = document.createElement("h3");
     var pEl = document.createElement("p");
@@ -409,6 +418,7 @@ function checkScore() {
         }
     }
     
+    // Check where the current user placed in the highscores. Print appropriate message.
     if(rank < -1) {
         mainContent.innerHTML = '';
         h3El.textContent = "Sorry you didn't make the top 10...";
@@ -420,29 +430,33 @@ function checkScore() {
         mainContent.appendChild(h3El);
         mainContent.appendChild(pEl);
         
+        // Get user's initials if they made it in the top 10
         var tempTimer = setTimeout(function() {
             getUserName(rank, newHighScore, saveScore);
         }, 3000);
     }
 }
 
+// Function for saving current score to LocalStorage
 function saveScore(rank, userData) {
     if(rank > -1) {
-        scores.splice(rank, 0, userData);
+        scores.splice(rank, 0, userData);       //Insert user in the correct list position
         scores.pop();
     } else {
-        scores.push(userData);
+        scores.push(userData);                      //Add user to end of list if list is empty
         scores.sort((a, b) => b.score - a.score);
     }
     localStorage.setItem("scores", JSON.stringify(scores));
 }
 
+// Function for retrieving scores from LocalStorage
 function getScores() {
     var s = JSON.parse(localStorage.getItem("scores"));
 
-    return (s ? s : []);
+    return (s ? s : []);        // Returns Array if not null else return empty Array
 }
 
+// Function for delivering HTML to retrieve user initals input
 function getUserName(rank, userData, callback) {
     mainContent.innerHTML = '';
     var h3El = document.createElement("h3");
@@ -472,6 +486,7 @@ function getUserName(rank, userData, callback) {
     mainContent.appendChild(divEl);
 }
 
+// Function for generating highscores page
 function generateScores() {
     if(scores.length > 0) {
         mainContent.innerHTML = "<h2 class='top-scores'>Top 10 Scores</h2><br>"
@@ -532,6 +547,7 @@ function generateScores() {
     });
 }
 
+// Even listenter for page load
 document.addEventListener("DOMContentLoaded", function() {
     scores = getScores();
     if(document.title === "Coding Quiz Challenge") {
