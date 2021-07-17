@@ -129,6 +129,28 @@ body {
     }
 }
 
-@media screen and (max-width: 375px) {
-    
+@media screen and (max-width: 411px) {
+    .flex-header div h1 {
+        font-size: 32px;
+    }
+
+    .flex-header div a {
+        font-size: 13px;
+    }
+
+    .flex-center h2 {
+        font-size: 18px;
+    }
+
+    .flex-center h3 {
+        font-size: 16px;
+    }
+
+    .flex-center h4 {
+        font-size: 14px;
+    }
+
+    .flex-footer {
+        font-size: 12px;
+    }
 }
