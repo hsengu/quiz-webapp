@@ -1,0 +1,32 @@
+/*
+Stylesheet for highscores.html scoreboard styling
+*/
+/* Main content styling */
+.top-scores {
+    border-bottom: 5px solid red;
+    font-size: 32px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    font-size: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+.score-table tr:nth-child(even) {
+    background: linear-gradient(
+        rgba(255, 255, 255, .3), 
+        rgba(255, 255, 255, .3));
+}
+
+.button {
+    margin: 15px 0 0 15px;
+}

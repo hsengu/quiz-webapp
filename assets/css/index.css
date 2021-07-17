@@ -1,0 +1,69 @@
+/*
+Stylesheet for index.html main quiz styling
+*/
+/* Main content styling */
+.flex-center .content {
+    min-height: 300px;
+    max-height: fit-content;
+}
+
+.flex-center .content h3 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.flex-center .content p {
+    text-align: center;
+    font-size: 18px;
+}
+
+.flex-center .content button {
+    margin: 10px auto;
+    font-size: 18px;
+    display: block;
+}
+
+.flex-center .content .answers {
+    align-items: center;
+}
+
+.flex-center .content h4 {
+    text-align: center;
+}
+
+/* Start button styling */
+#start-button {
+    text-align: center;
+    width: max-content;
+    margin: 0 auto;
+}
+
+/* Default button position styling */
+.button {
+    display: block;
+}
+
+/* Styling for user input form */
+.user-input {
+    margin: 0 auto;
+    width: fit-content;
+    padding: 10px;
+}
+
+#name {
+    padding: 10px 5px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#submit-btn {
+    margin-top: 5px;
+    width: auto;
+}
+
+/* Adaptive quiz sizing styling for screen sizes */
+@media screen and (max-width: 411px) {
+    .flex-center .content .button {
+        font-size: 14px;
+    }
+}

@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <link rel="stylesheet" href="./assets/css/index.css"/>
+    <title>Coding Quiz Challenge</title>
 </head>
 <body>
-    
+    <section id="top">
+        <header class="flex-header">
+            <div>
+                <a href="./highscores.html"><h3>🏆 See current high scores! 🏆</h3></a>
+            </div>
+            <div>
+                <h1>Coding Quiz!</h1>
+            </div>
+            <div>
+                <h3 id="time-left"></h3>
+            </div>
+        </header>
+    </section>
+    <section id="main">
+        <div class="flex">
+            <div class="flex-top"></div>
+            <div class="flex-center">
+                <div class="content">
+                    <h2>Are You Ready?!</h2>
+                    <h4>Try to answer the following questions within the time limit given.</h4>
+                    <h4>Keep in mind you will be penalized by subtracting 10 seconds from your time if an incorrect answer is chosen!</h4>
+                    <h4>Good luck!</h4>
+                    <br>
+                    <button id="start-button" class="button">Start Quiz!</button>
+                </div>
+            </div>
+            <div class="flex-bottom"></div>
+        </div>
+    </section>
+    <section id="footer">
+        <footer class="flex-footer">
+            <div>
+                <p>&copy;Copyright 2021 by Hok S. Uy</p>
+            </div>
+        </footer>
+    </section>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
