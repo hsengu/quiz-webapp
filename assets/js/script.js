@@ -21,7 +21,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "How do you select the following HTML element below?\n\n<p id='demo'>This is a demonstration.</p>",
+        "question": "How do you select the following HTML element below? <p id='demo'>This is a demonstration.</p>",
         "choices": [
             "document.getElementById('demo');",
             "document.querySelector('demo');",
@@ -131,7 +131,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "In the following code snippet the function inside the first set of ( ) is also know as a ________ function:\n\narray.forEach(function( ) { })",
+        "question": "In the following code snippet the function inside the first set of ( ) is also know as a ________ function: array.forEach(function( ) { })",
         "choices": [
             "Algorithmic",
             "Iterative",
@@ -219,7 +219,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "Which of the following code will capture a click event form a button?",
+        "question": "Which of the following code will capture a click event from a button?",
         "choices": [
             "button.addEventListener(event, function('click') { });",
             "button.addEventListener(function('click') {});",
