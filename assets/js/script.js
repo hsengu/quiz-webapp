@@ -21,7 +21,7 @@ var questionPool = [
         "added": false
     },
     {
-        "question": "How do you select the following HTML element below? <p id='demo'>This is a demonstration.</p>",
+        "question": "How would you select the following HTML element? <p id='demo'>This is a demonstration.</p>",
         "choices": [
             "document.getElementById('demo');",
             "document.querySelector('demo');",
