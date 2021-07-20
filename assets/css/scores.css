@@ -21,6 +21,10 @@ th, td {
     padding: 8px;
 }
 
+.button {
+    width: fit-content;
+}
+
 .score-table tr:nth-child(even) {
     background: linear-gradient(
         rgba(255, 255, 255, .3), 
